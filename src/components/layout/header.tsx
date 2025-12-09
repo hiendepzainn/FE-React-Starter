@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { HomeOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { Link } from "react-router";
@@ -16,6 +16,17 @@ const items: MenuItem[] = [
     label: <Link to={"/users"}>Users</Link>,
     key: "user",
     icon: <UserOutlined />,
+  },
+  {
+    label: "Welcome hiendepzainn@gmail.com",
+    key: "SubMenu",
+    icon: <SettingOutlined />,
+    children: [
+      {
+        label: "Logout",
+        key: "logout",
+      },
+    ],
   },
 ];
 

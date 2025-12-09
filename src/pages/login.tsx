@@ -1,6 +1,7 @@
 import type { FormProps } from "antd";
-import { Button, Form, Input } from "antd";
-import axios from "axios";
+import { App, Button, Form, Input } from "antd";
+import { loginAPI } from "../services/api";
+import { useNavigate } from "react-router";
 
 type FieldType = {
   username?: string;
@@ -8,14 +9,25 @@ type FieldType = {
 };
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const { notification } = App.useApp();
+
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     const { username, password } = values;
-    const response = await axios.post("http://localhost:8000/api/login", {
-      username,
-      password,
-    });
 
-    console.log("response:", response);
+    try {
+      const response = await loginAPI(username!, password!);
+      const access_token = response.data.data.access_token;
+      localStorage.setItem("access_token", access_token);
+      navigate("/");
+    } catch (error: any) {
+      const errorMessage = error.response.data.message;
+      notification.error({
+        message: "Notification",
+        description: errorMessage,
+        placement: "topRight",
+      });
+    }
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (

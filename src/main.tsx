@@ -7,6 +7,7 @@ import AppLayout from "./layout";
 import UserPage from "./pages/user";
 import HomePage from "./pages/home";
 import LoginPage from "./pages/login";
+import { App } from "antd";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
 
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <App>
+        <LoginPage />
+      </App>
+    ),
   },
 ]);
 
